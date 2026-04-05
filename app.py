@@ -1,0 +1,38 @@
+import streamlit as st
+from google import genai
+import time
+
+# UI Setup (Browser Version)
+st.set_page_config(page_title="Jarvis AI", page_icon="🤖")
+st.title("J.A.R.V.I.S  MAINFRAME (Cloud)")
+
+# API Setup
+GOOGLE_API_KEY = "AIzaSyD8jzU3P6puwdajghjvvXebHSy4NZe9mXQ"
+client = genai.Client(api_key=GOOGLE_API_KEY)
+
+# Chat History
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# Display Chat
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+# User Input
+if prompt := st.chat_input("Kaise ho Jarvis?"):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    # AI Brain Call
+    with st.chat_message("assistant"):
+        with st.spinner("Soch raha hoon..."):
+            response = client.models.generate_content(
+                model='gemini-2.0-flash',
+                contents=f"You are Jarvis. Reply in cool Hinglish: {prompt}"
+            )
+            full_response = response.text
+            st.markdown(full_response)
+    
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
