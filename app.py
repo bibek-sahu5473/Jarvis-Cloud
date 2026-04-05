@@ -31,7 +31,7 @@ if prompt := st.chat_input("Kaise ho Jarvis?"):
         with st.spinner("Soch raha hoon..."):
             try:
                 response = client.models.generate_content(
-                    model='gemini-1.5-flash',
+                   model='gemini-2.5-flash',
                     contents=f"You are Jarvis. Reply in cool Hinglish: {prompt}"
                 )
                 full_response = response.text
