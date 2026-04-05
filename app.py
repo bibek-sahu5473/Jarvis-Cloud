@@ -7,7 +7,8 @@ st.set_page_config(page_title="Jarvis AI", page_icon="🤖")
 st.title("J.A.R.V.I.S  MAINFRAME (Cloud)")
 
 # API Setup
-GOOGLE_API_KEY = "AIzaSyD8jzU3P6puwdajghjvvXebHSy4NZe9mXQ"
+# Ab hum chabi Streamlit ke secret locker se nikalenge!
+GOOGLE_API_KEY = st.secrets["MY_SECRET_KEY"]
 client = genai.Client(api_key=GOOGLE_API_KEY)
 
 # Chat History
